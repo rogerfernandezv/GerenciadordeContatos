@@ -40,7 +40,7 @@ public class MainActivity extends ActionBarActivity {
         txtEndereco = (EditText) findViewById(R.id.txtEndereco);
         contatosListView = ((ListView) findViewById(R.id.listView));
         final Button btnAdd = (Button) findViewById(R.id.btnAdd);
-        dbHandler = new DatabaseHandler(getApplicationContext());
+        dbHandler = new DatabaseHandler(this);
 
         TabHost tabhost = (TabHost) findViewById(R.id.tabHost);
         tabhost.setup();
@@ -59,13 +59,11 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Contato contato = new Contato(dbHandler.getContatoCount(), String.valueOf(txtNome.getText().toString()), String.valueOf(txtEndereco.getText().toString()), String.valueOf(txtNumero.getText().toString()), String.valueOf(txtEmail.getText().toString()) );
-                //String teste = "";
                 dbHandler.criarContato(contato);
-                //Toast.makeText(getApplicationContext(), teste, Toast.LENGTH_SHORT).show();
                 contatos.add(contato);
                 popularLista();
                 Toast.makeText(getApplicationContext(),txtNome.getText().toString() + " foi adicionado com sucesso!", Toast.LENGTH_LONG).show();
-                //clearListView();
+                clearListView();
             }
         });
 

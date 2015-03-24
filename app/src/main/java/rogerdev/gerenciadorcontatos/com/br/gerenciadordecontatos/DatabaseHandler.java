@@ -16,8 +16,6 @@ import java.util.List;
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-    private static final String LOGCAT = null;
-
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "contatosManager",
     TABLE_CONTATOS = "contatos",
@@ -34,14 +32,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db){
 
-        String query = "CREATE TABLE contatos (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, endereco TEXT, numero TEXT, email TEXT);";
-        db.execSQL(query);
-        //db.execSQL("CREATE TABLE " + TABLE_CONTATOS + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + " TEXT," + KEY_ENDERECO + " TEXT," + KEY_NUMERO + " TEXT," + KEY_EMAIL + " TEXT );");
+        db.execSQL("CREATE TABLE " + TABLE_CONTATOS + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + " TEXT," + KEY_ENDERECO + " TEXT," + KEY_NUMERO + " TEXT," + KEY_EMAIL + " TEXT )");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTATOS);
+        db.execSQL("DROP TABLE IF EXISTS contatos");
         onCreate(db);
     }
 
@@ -50,21 +46,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        /*values.put(KEY_ID, contato.getId());
         values.put(KEY_NAME, contato.getNome());
         values.put(KEY_ENDERECO, contato.getEndereco());
         values.put(KEY_NUMERO, contato.getNumero());
-        values.put(KEY_EMAIL, contato.getEmail());*/
+        values.put(KEY_EMAIL, contato.getEmail());
 
-        //values.put("id", 123);
-        values.put("nome", "roger");
-        values.put("endereco", "rua do nunca");
-        values.put("numero", "nada");
-        values.put("email", "jfdijfisjijfd");
-
-        String query = "INSERT INTO contatos(nome, email, endereco, numero) VALUES ('roger','rgr','rua','123')";
-        db.execSQL(query);
-        //db.insert(TABLE_CONTATOS, null, values);
+        db.insert(TABLE_CONTATOS, null, values);
         db.close();
 
     }
